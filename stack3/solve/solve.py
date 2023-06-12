@@ -22,4 +22,5 @@ p.sendline(payload)
 message = p.recrecvline()
 FLAG = b'code flow successfully changed'
 if FLAG in message:
+    print("="*30)
     print(FLAG)
